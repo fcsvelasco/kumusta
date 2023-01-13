@@ -1,16 +1,5 @@
-# worksampler
+# Kumusta
 
-A new Flutter project.
+Kumusta is an app that helps user monitor their mood and productivity by reminding them to check how they feel or what they are doing at random times of the day. The app shows them how their time is distributed to different feelings, thoughts, or activities.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Built using Flutter.
