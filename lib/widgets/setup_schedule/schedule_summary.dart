@@ -2,9 +2,9 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/day.dart';
-import '../models/tracker.dart';
-import './page_heading.dart';
+import '../../models/day.dart';
+import '../../models/tracker.dart';
+import '../../styling/page_heading.dart';
 
 class ScheduleSummary extends ConsumerWidget {
   const ScheduleSummary({

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import './choose_icon_form.dart';
-import '../models/activity.dart';
-import '../models/tracker.dart';
-import '../styling/app_theme_data.dart';
+import '../setup-activities/choose_icon_form.dart';
+import '../../models/activity.dart';
+import '../../models/tracker.dart';
+import '../../styling/app_theme_data.dart';
 
 class ViewActivityDetails extends ConsumerWidget {
   const ViewActivityDetails({

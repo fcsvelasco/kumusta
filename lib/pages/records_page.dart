@@ -4,7 +4,7 @@ import 'package:worksampler/services/notification_helper.dart';
 
 import '../models/tracker.dart';
 import '../styling/app_theme_data.dart';
-import '../widgets/trackers_list.dart';
+import '../widgets/records/trackers_list.dart';
 
 class RecordsPage extends ConsumerStatefulWidget {
   RecordsPage({

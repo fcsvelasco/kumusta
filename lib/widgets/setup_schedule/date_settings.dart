@@ -2,9 +2,9 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/my_consumer_widget.dart';
-import '../models/tracker.dart';
-import '../styling/app_theme_data.dart';
+import '../../styling/my_consumer_widget.dart';
+import '../../models/tracker.dart';
+import '../../styling/app_theme_data.dart';
 
 class DateSettings extends MyConsumerWidget {
   const DateSettings({Key? key}) : super(key: key);

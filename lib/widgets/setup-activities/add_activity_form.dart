@@ -3,12 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../services/database_helper.dart';
-import './choose_icon_form.dart';
-import '../models/tracker.dart';
-import './page_heading.dart';
-import '../styling/app_theme_data.dart';
-import '../models/activity.dart';
+import '../../services/database_helper.dart';
+import 'choose_icon_form.dart';
+import '../../models/tracker.dart';
+import '../../styling/page_heading.dart';
+import '../../styling/app_theme_data.dart';
+import '../../models/activity.dart';
 
 class AddActivityForm extends ConsumerStatefulWidget {
   AddActivityForm({

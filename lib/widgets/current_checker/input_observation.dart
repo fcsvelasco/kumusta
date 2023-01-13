@@ -4,14 +4,14 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import './add_activity_form.dart';
-import '../models/tracker.dart';
-import '../models/activity.dart';
-import '../models/observation.dart';
-import '../styling/app_theme_data.dart';
-import './activity_unit.dart';
-import './activities_list.dart';
-import './page_heading.dart';
+import '../setup-activities/add_activity_form.dart';
+import '../../models/tracker.dart';
+import '../../models/activity.dart';
+import '../../models/observation.dart';
+import '../../styling/app_theme_data.dart';
+import '../activities/activity_unit.dart';
+import '../activities/activities_list.dart';
+import '../../styling/page_heading.dart';
 
 class InputObservation extends ConsumerStatefulWidget {
   const InputObservation({

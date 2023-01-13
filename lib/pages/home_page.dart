@@ -6,7 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../models/tracker.dart';
 import './set_schedule_page.dart';
-import '../widgets/start_new_tracker_dialog.dart';
+import '../widgets/records/start_new_tracker_dialog.dart';
 import './tabs_page.dart';
 import '../styling/app_theme_data.dart';
 import '../services/database_helper.dart';

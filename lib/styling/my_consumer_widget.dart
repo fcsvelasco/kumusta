@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../styling/app_theme_data.dart';
+import 'app_theme_data.dart';
 
 class MyConsumerWidget extends ConsumerWidget {
   const MyConsumerWidget({Key? key}) : super(key: key);

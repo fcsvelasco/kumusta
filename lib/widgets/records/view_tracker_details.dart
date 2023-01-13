@@ -2,12 +2,12 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/tracker.dart';
-import '../styling/app_theme_data.dart';
-import './activities_list.dart';
-import './activity_unit.dart';
-import './chart_area.dart';
-import './page_heading.dart';
+import '../../models/tracker.dart';
+import '../../styling/app_theme_data.dart';
+import '../activities/activities_list.dart';
+import '../activities/activity_unit.dart';
+import '../current_checker/chart_area.dart';
+import '../../styling/page_heading.dart';
 
 class ViewTrackerDetails extends ConsumerWidget {
   ViewTrackerDetails({required this.tracker, Key? key}) : super(key: key);

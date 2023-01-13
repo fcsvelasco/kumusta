@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../widgets/information_tabs_area.dart';
-import '../widgets/chart_area.dart';
+import '../widgets/current_checker/information_tabs_area.dart';
+import '../widgets/current_checker/chart_area.dart';
 import '../styling/app_theme_data.dart';
 
 class CurrentTrackerPage extends ConsumerStatefulWidget {

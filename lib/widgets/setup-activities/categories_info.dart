@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/tracker.dart';
-import '../styling/app_theme_data.dart';
-import './page_heading.dart';
+import '../../models/tracker.dart';
+import '../../styling/app_theme_data.dart';
+import '../../styling/page_heading.dart';
 
 class CategoriesInfo extends ConsumerWidget {
   const CategoriesInfo({Key? key}) : super(key: key);

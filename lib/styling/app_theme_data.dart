@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 
 import './my_custom_icons_icons.dart';
-import '../widgets/page_heading.dart';
+import 'page_heading.dart';
 
 const COLOR = [
   Color.fromRGBO(254, 222, 190, 1),

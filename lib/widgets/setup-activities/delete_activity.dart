@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/tracker.dart';
-import './page_heading.dart';
-import '../styling/app_theme_data.dart';
-import '../models/activity.dart';
+import '../../models/tracker.dart';
+import '../../styling/page_heading.dart';
+import '../../styling/app_theme_data.dart';
+import '../../models/activity.dart';
 
 class DeleteActivity extends ConsumerWidget {
   const DeleteActivity({required this.activity, Key? key}) : super(key: key);

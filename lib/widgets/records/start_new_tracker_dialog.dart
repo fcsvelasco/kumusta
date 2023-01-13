@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/tracker.dart';
-import '../services/database_helper.dart';
-import '../styling/app_theme_data.dart';
-import './page_heading.dart';
+import '../../models/tracker.dart';
+import '../../services/database_helper.dart';
+import '../../styling/app_theme_data.dart';
+import '../../styling/page_heading.dart';
 
 class StartNewTrackerDialog extends ConsumerStatefulWidget {
   const StartNewTrackerDialog({required this.isFromHomePage, Key? key})

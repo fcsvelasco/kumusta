@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/my_consumer_widget.dart';
-import '../models/tracker.dart';
-import '../models/day.dart';
-import './day_button.dart';
+import '../../styling/my_consumer_widget.dart';
+import '../../models/tracker.dart';
+import '../../models/day.dart';
 
 class DaySettings extends MyConsumerWidget {
   const DaySettings({Key? key}) : super(key: key);
@@ -96,6 +95,37 @@ The days you select depend on what you want to track. You may select all the day
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class DayButton extends StatelessWidget {
+  const DayButton({required this.day, required this.onPressed, Key? key})
+      : super(key: key);
+
+  final Day day;
+  final Function onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      onPressed: () {
+        onPressed(day.id);
+      },
+      style: OutlinedButton.styleFrom(
+        shape: const CircleBorder(),
+        minimumSize: Size.zero,
+        padding: const EdgeInsets.all(10),
+        backgroundColor: day.isSelected ? Theme.of(context).accentColor : null,
+        //backgroundColor: Colors.blue
+        //maximumSize: Size.fromWidth(20),
+      ),
+      child: Text(
+        day.shortName,
+        style: TextStyle(
+            color:
+                day.isSelected ? Colors.white : Theme.of(context).accentColor),
       ),
     );
   }

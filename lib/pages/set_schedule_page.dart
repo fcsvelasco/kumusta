@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:worksampler/styling/cutom_appbar.dart';
 
-import '../models/my_consumer_widget.dart';
+import '../styling/cutom_appbar.dart';
+import '../styling/my_consumer_widget.dart';
 import '../models/tracker.dart';
-import '../widgets/date_settings.dart';
-import '../widgets/schedule_summary.dart';
+import '../widgets/setup_schedule/date_settings.dart';
+import '../widgets/setup_schedule/schedule_summary.dart';
 import './set_activities_page.dart';
-import '../widgets/page_heading.dart';
-import '../widgets/day_settings.dart';
-import '../widgets/time_settings.dart';
+import '../styling/page_heading.dart';
+import '../widgets/setup_schedule/day_settings.dart';
+import '../widgets/setup_schedule/time_settings.dart';
 import '../models/day.dart';
 import '../styling/app_theme_data.dart';
 

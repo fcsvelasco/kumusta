@@ -3,11 +3,11 @@ import 'package:pie_chart/pie_chart.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/day.dart';
-import './page_heading.dart';
-import '../models/tracker.dart';
-import '../models/activity.dart';
-import '../styling/app_theme_data.dart';
+import '../../models/day.dart';
+import '../../styling/page_heading.dart';
+import '../../models/tracker.dart';
+import '../../models/activity.dart';
+import '../../styling/app_theme_data.dart';
 
 class ChartArea extends ConsumerStatefulWidget {
   ChartArea({

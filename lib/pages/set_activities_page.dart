@@ -4,10 +4,10 @@ import 'package:worksampler/styling/cutom_appbar.dart';
 
 import '../models/activity.dart';
 import '../models/tracker.dart';
-import '../widgets/activity_unit.dart';
+import '../widgets/activities/activity_unit.dart';
 import './verify_settings_page.dart';
-import '../widgets/page_heading.dart';
-import '../widgets/activities_settings.dart';
+import '../styling/page_heading.dart';
+import '../widgets/setup-activities/activities_settings.dart';
 import '../styling/app_theme_data.dart';
 
 class SetActivitiesPage extends ConsumerWidget {

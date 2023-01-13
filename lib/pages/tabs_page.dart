@@ -6,13 +6,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/activity.dart';
 import '../models/response.dart';
-import '../models/my_consumer_stateful_widget.dart';
+import '../styling/my_consumer_stateful_widget.dart';
 import '../models/observation.dart';
 import '../models/tracker.dart';
 import './records_page.dart';
 import './set_schedule_page.dart';
-import '../widgets/input_observation.dart';
-import '../widgets/start_new_tracker_dialog.dart';
+import '../widgets/current_checker/input_observation.dart';
+import '../widgets/records/start_new_tracker_dialog.dart';
 import './current_tracker_page.dart';
 import '../styling/app_theme_data.dart';
 import '../services/notification_helper.dart';

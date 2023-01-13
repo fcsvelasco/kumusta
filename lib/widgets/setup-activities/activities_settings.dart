@@ -3,12 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import './activities_info.dart';
 import './categories_info.dart';
-import '../models/activity.dart';
-import './add_activity_form.dart';
-import '../models/tracker.dart';
-import './activities_list.dart';
-import '../styling/app_theme_data.dart';
-import './activity_unit.dart';
+import '../../models/activity.dart';
+import 'add_activity_form.dart';
+import '../../models/tracker.dart';
+import '../activities/activities_list.dart';
+import '../../styling/app_theme_data.dart';
+import '../activities/activity_unit.dart';
 
 class ActivitiesSettings extends ConsumerWidget {
   const ActivitiesSettings({required this.mode, Key? key}) : super(key: key);

@@ -4,13 +4,13 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../styling/cutom_appbar.dart';
 import '../models/tracker.dart';
-import '../widgets/schedule_summary.dart';
+import '../widgets/setup_schedule/schedule_summary.dart';
 import '../services/database_helper.dart';
 import './tabs_page.dart';
 import '../styling/app_theme_data.dart';
-import '../widgets/activities_list.dart';
-import '../widgets/activity_unit.dart';
-import '../widgets/page_heading.dart';
+import '../widgets/activities/activities_list.dart';
+import '../widgets/activities/activity_unit.dart';
+import '../styling/page_heading.dart';
 
 class VerifySettingsPage extends ConsumerWidget {
   const VerifySettingsPage({Key? key}) : super(key: key);
