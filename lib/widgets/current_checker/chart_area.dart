@@ -261,6 +261,7 @@ class _ChartAreaState extends ConsumerState<ChartArea> {
           status: TrackerStatus.unfinished,
           startDate: DateTime.now(),
           endDate: DateTime.now(),
+          trackerFrequency: TrackerFrequency.moderate,
         );
       });
 

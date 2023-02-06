@@ -14,12 +14,11 @@ class ObservationsList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final observations = ref
-        .watch(observationsProvider)
-        .where((o) =>
-            o.status == ObservationStatus.missed ||
-            o.status == ObservationStatus.recordNow)
-        .toList();
+    final observations = ref.watch(observationsProvider);
+    // .where((o) =>
+    //     o.status == ObservationStatus.missed ||
+    //     o.status == ObservationStatus.recordNow)
+    // .toList();
 
     return observations.isEmpty
         ? Container(

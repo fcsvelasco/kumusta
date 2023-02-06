@@ -29,11 +29,11 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (widget.payload != null && widget.payload == 'tabs_page') {
-        loadCurrentData(context);
+        _loadCurrentData(context);
       } else if (await DatabaseHelper.instance.isWithCurrentTracker()) {
-        loadCurrentData(context);
+        _loadCurrentData(context);
       } else if (await DatabaseHelper.instance.isWithFinishedTracker()) {
-        loadLatestFinishedData(context);
+        _loadLatestFinishedData(context);
       } else {
         setState(() {
           _isLoading = false;
@@ -42,7 +42,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     });
   }
 
-  Future<void> loadCurrentData(BuildContext context) async {
+  Future<void> _loadCurrentData(BuildContext context) async {
     setState(() {
       _isLoading = true;
     });
@@ -59,7 +59,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     });
   }
 
-  Future<void> loadLatestFinishedData(BuildContext context) async {
+  Future<void> _loadLatestFinishedData(BuildContext context) async {
     setState(() {
       _isLoading = true;
     });
@@ -74,7 +74,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     });
   }
 
-  void startCreateNewTracker() async {
+  void _startCreateNewTracker() async {
     showDialog(
       context: context,
       builder: (context) {
@@ -162,7 +162,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             if (!_isLoading)
               ThemedButton(
                 onPressed: () {
-                  startCreateNewTracker();
+                  _startCreateNewTracker();
                 },
                 color: Theme.of(context).accentColor,
                 child: const Text(

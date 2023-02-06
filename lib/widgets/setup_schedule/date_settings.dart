@@ -14,7 +14,7 @@ class DateSettings extends MyConsumerWidget {
       context: context,
       title: 'Date Range',
       description:
-          '''Here, you provide the start and end dates for your tracker. Usually, tracking takes two (2) to three (3) weeks, but it also depends on your chosen days of the week and length of time for each day.
+          '''Here, you provide the start and end dates for your checker. Usually, it takes two (2) to three (3) weeks, but it also depends on your chosen days of the week and length of time for each day.
 
 If you are not sure of what to put here, you may set a duration of 3 weeks.''',
       isForConfirmation: false,

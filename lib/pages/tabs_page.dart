@@ -26,18 +26,18 @@ class TabsPage extends ConsumerStatefulWidget {
 
 class _TabsPageState extends MyConsumerState<TabsPage>
     with WidgetsBindingObserver {
-  late final LocalNotificationHelper notificationHelper;
-  late Timer recordTimer;
+  late final LocalNotificationHelper _notificationHelper;
+  late Timer _recordTimer;
 
-  var isDialogOpen = false;
+  var _isDialogOpen = false;
 
   @override
   void initState() {
     super.initState();
-    notificationHelper = LocalNotificationHelper();
-    notificationHelper.initialize();
+    _notificationHelper = LocalNotificationHelper();
+    _notificationHelper.initialize();
     WidgetsBinding.instance.addObserver(this);
-    setTimeForNextObservation();
+    _setTimeForNextObservation();
   }
 
   @override
@@ -46,7 +46,7 @@ class _TabsPageState extends MyConsumerState<TabsPage>
     WidgetsBinding.instance.removeObserver(this);
   }
 
-  void setTimeForNextObservation() {
+  void _setTimeForNextObservation() {
     try {
       final tracker = ref.read(trackerProvider);
       tracker.updateObservationsOnLoad(ref);
@@ -57,18 +57,18 @@ class _TabsPageState extends MyConsumerState<TabsPage>
       if (tracker.isWithNextObservation(ref)) {
         //print('with next observation!');
         Timer(nextObservation.dateTime.difference(DateTime.now()), () {
-          recordTimer = Timer(
+          _recordTimer = Timer(
               const Duration(minutes: Observation.recordNowDuration),
-              () => missObservation(nextObservation));
+              () => _missObservation(nextObservation));
           ref.read(observationsProvider.notifier).updateObservation(
                 trackerId: nextObservation.trackerId,
                 id: nextObservation.id,
                 status: ObservationStatus.recordNow,
               );
-          startRecordObvservation(nextObservation, false);
+          _startRecordObvservation(nextObservation, false);
         });
       } else if (tracker.status != TrackerStatus.finished) {
-        checkFinishTracking();
+        _checkFinishTracking();
       }
       //print('Timer set for Observation id: ${nextObservation.id}');
     } catch (e) {
@@ -76,8 +76,8 @@ class _TabsPageState extends MyConsumerState<TabsPage>
     }
   }
 
-  void startRecordObvservation(Observation obs, bool isForUpdate) {
-    if (isDialogOpen) {
+  void _startRecordObvservation(Observation obs, bool isForUpdate) {
+    if (_isDialogOpen) {
       Navigator.of(context).pop();
     }
     showDialog(
@@ -94,36 +94,36 @@ class _TabsPageState extends MyConsumerState<TabsPage>
                 borderRadius: BorderRadius.all(Radius.circular(15.0))),
           );
         }).then((value) {
-      isDialogOpen = false;
+      _isDialogOpen = false;
       if (value == null) {
         return;
       }
       if (!isForUpdate) {
-        setTimeForNextObservation();
-        recordTimer.cancel();
+        _setTimeForNextObservation();
+        _recordTimer.cancel();
       } else {
-        checkFinishTracking(isFromPendingObservation: true);
+        _checkFinishTracking(isFromPendingObservation: true);
       }
-      if (needToShowResponse(value)) {
-        showResponseToNegativeMood(
+      if (_needToShowResponse(value)) {
+        _showResponseToNegativeMood(
           responseScenario:
               DateTime.now().difference(obs.dateTime).inMinutes >= 15
                   ? ResponseScenario.notRecent
                   : ResponseScenario.recent,
         );
       }
-      showSnackBar(const Text('Self-check recorded!'));
+      _showSnackBar(const Text('Self-check recorded!'));
     });
 
-    isDialogOpen = true;
+    _isDialogOpen = true;
   }
 
-  void showSnackBar(Widget content) {
+  void _showSnackBar(Widget content) {
     ScaffoldMessenger.of(context)
         .showSnackBar(MySnackBar(context: context, child: content));
   }
 
-  bool needToShowResponse(dynamic val) {
+  bool _needToShowResponse(dynamic val) {
     final tracker = ref.read(trackerProvider);
     if (tracker.status == TrackerStatus.current &&
         tracker.trackerMode == TrackerMode.moodSampling &&
@@ -135,9 +135,9 @@ class _TabsPageState extends MyConsumerState<TabsPage>
     }
   }
 
-  void showResponseToNegativeMood(
+  void _showResponseToNegativeMood(
       {required ResponseScenario responseScenario}) {
-    isDialogOpen = true;
+    _isDialogOpen = true;
     showDialog(
       context: context,
       builder: (context) {
@@ -151,26 +151,26 @@ class _TabsPageState extends MyConsumerState<TabsPage>
         );
       },
     ).then((_) {
-      isDialogOpen = false;
+      _isDialogOpen = false;
     });
   }
 
-  void checkFinishTracking({bool? isFromPendingObservation}) {
+  void _checkFinishTracking({bool? isFromPendingObservation}) {
     final tracker = ref.read(trackerProvider);
 
     if (tracker.isTimeToFinishTracking(ref)) {
-      finishTracking();
+      _finishTracking();
     } else if (tracker.isWithPendingObservation(ref)) {
       if (isFromPendingObservation != null && isFromPendingObservation) {
         return;
       } else {
-        remindPendingObservations();
+        _remindPendingObservations();
       }
     }
   }
 
-  void remindPendingObservations() {
-    if (isDialogOpen) {
+  void _remindPendingObservations() {
+    if (_isDialogOpen) {
       Navigator.of(context).pop();
     }
     showDialog(
@@ -189,13 +189,13 @@ class _TabsPageState extends MyConsumerState<TabsPage>
           ),
         );
       },
-    ).then((_) => isDialogOpen = false);
-    isDialogOpen = true;
+    ).then((_) => _isDialogOpen = false);
+    _isDialogOpen = true;
   }
 
-  void finishTracking() {
+  void _finishTracking() {
     ref.read(trackerProvider.notifier).finishTracking();
-    if (isDialogOpen) {
+    if (_isDialogOpen) {
       Navigator.of(context).pop();
     }
     showDialog(
@@ -214,12 +214,12 @@ class _TabsPageState extends MyConsumerState<TabsPage>
           ),
         );
       },
-    ).then((_) => isDialogOpen = false);
-    isDialogOpen = true;
+    ).then((_) => _isDialogOpen = false);
+    _isDialogOpen = true;
   }
 
-  void missObservation(Observation obs) {
-    if (isDialogOpen) {
+  void _missObservation(Observation obs) {
+    if (_isDialogOpen) {
       Navigator.of(context).pop();
     }
     showDialog(
@@ -238,9 +238,9 @@ class _TabsPageState extends MyConsumerState<TabsPage>
           ),
         );
       },
-    ).then((_) => isDialogOpen = false);
+    ).then((_) => _isDialogOpen = false);
 
-    isDialogOpen = true;
+    _isDialogOpen = true;
 
     ref
         .read(observationsProvider.notifier)
@@ -249,15 +249,15 @@ class _TabsPageState extends MyConsumerState<TabsPage>
           id: obs.id,
           status: ObservationStatus.missed,
         )
-        .then(((value) => setTimeForNextObservation()));
+        .then(((value) => _setTimeForNextObservation()));
   }
 
-  void setNotifications(int count) async {
+  void _setNotifications(int count) async {
     try {
       final observations =
           ref.read(trackerProvider).nextObservations(ref, count);
       for (int i = 0; i < count; i++) {
-        await notificationHelper.setScheduledNotification(
+        await _notificationHelper.setScheduledNotification(
             id: i,
             title: 'Kumusta?',
             body: 'Time for self-check!',
@@ -265,7 +265,7 @@ class _TabsPageState extends MyConsumerState<TabsPage>
             payload: 'tabs_page');
       }
 
-      await notificationHelper.setScheduledNotification(
+      await _notificationHelper.setScheduledNotification(
         id: count,
         title: 'Kumusta?',
         body:
@@ -279,7 +279,7 @@ class _TabsPageState extends MyConsumerState<TabsPage>
     }
   }
 
-  void cancelNotifications() async {
+  void _cancelNotifications() async {
     try {
       await FlutterLocalNotificationsPlugin().cancelAll();
       //print('Notifications cancelled');
@@ -288,7 +288,7 @@ class _TabsPageState extends MyConsumerState<TabsPage>
     }
   }
 
-  void startCreateNewTracker() async {
+  void _startCreateNewTracker() async {
     final trackersCount = ref.read(trackersListProvider).length;
 
     if (trackersCount < Tracker.maxTrackers) {
@@ -337,11 +337,11 @@ class _TabsPageState extends MyConsumerState<TabsPage>
     super.didChangeAppLifecycleState(state);
     //print('app state = $state');
     if (state == AppLifecycleState.inactive) {
-      setNotifications(3);
+      _setNotifications(3);
       return;
     }
     if (state == AppLifecycleState.resumed) {
-      cancelNotifications();
+      _cancelNotifications();
     }
   }
 
@@ -372,13 +372,13 @@ class _TabsPageState extends MyConsumerState<TabsPage>
           ? null
           : FloatingActionButton(
               onPressed: () {
-                startCreateNewTracker();
+                _startCreateNewTracker();
               },
               child: const Icon(Icons.add_chart_rounded),
             ),
       appBar: appBar,
       body: [
-        CurrentTrackerPage(startRecordObservation: startRecordObvservation),
+        CurrentTrackerPage(startRecordObservation: _startRecordObvservation),
         RecordsPage(
             //finishTracking: finishTracking,
             ),

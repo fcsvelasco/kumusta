@@ -15,12 +15,12 @@ class DaySettings extends MyConsumerWidget {
       description: trackerMode == TrackerMode.activitySampling
           ? '''Here, you select the days when the random self-checks will be done.
 
-The days you select depend on what you want to track. If you want to track your activities during work, which is a common use of this tracker, you select your workdays.
+The days you select depend on what you want to monitor. If you want to monitor your activities during work, which is a common use of this app, you select your workdays.
 
-If you simply want to track your daily activities, you can select certain days or all the days.'''
+If you simply want to monitor your daily activities, you can select certain days or all the days.'''
           : '''Here, you select the days when the random self-checks will be done.
           
-The days you select depend on what you want to track. You may select all the days if you want to track your mood throught the week. You may also select your workdays if you want to track your mood while working. You may also select certain days of the week depending on your purpose of using this tracker.''',
+The days you select depend on what you want to monitor. You may select all the days if you want to monitor your mood throughout the week. You may also select your workdays if you want to monitor your mood while working. You may also select certain days of the week depending on your purpose of using this app.''',
       isForConfirmation: false,
       icon: Icon(
         Icons.info_rounded,

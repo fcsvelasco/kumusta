@@ -85,6 +85,7 @@ class ActivitiesList extends ConsumerWidget {
           status: TrackerStatus.unfinished,
           startDate: DateTime.now(),
           endDate: DateTime.now(),
+          trackerFrequency: TrackerFrequency.moderate,
         );
       });
       activities = ref.watch(resultsActivitiesProvider);

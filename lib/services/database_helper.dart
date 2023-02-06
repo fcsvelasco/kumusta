@@ -180,6 +180,7 @@ class DatabaseHelper {
         }
       }
       Tracker tracker = ref.read(trackerProvider);
+      final trackerFrequency = tracker.trackerFrequency;
       await insertTracker(tracker);
       tracker = await getCurrentTracker();
       //print('Tracker start date: ${tracker.startDate.toIso8601String()}');
@@ -197,7 +198,11 @@ class DatabaseHelper {
         await insertActivity(a.copyWith(trackerId: tracker.id));
       }
 
-      await tracker.generateObservations(selectedDays, ref);
+      await tracker.generateObservations(
+        selectedDays,
+        ref,
+        trackerFrequency,
+      );
       final observations = ref.read(observationsProvider);
       for (Observation o in observations) {
         await insertObservation(o);
@@ -324,29 +329,6 @@ class DatabaseHelper {
       );
     }
   }
-
-  // Future<void> insertDummyData() async {
-  //   //print('insertDummyData()');
-  //   await insertTracker(Tracker(
-  //     id: 0,
-  //     isSameTimeForAllDays: true,
-  //     isWithBreakTime: false,
-  //     isNightShift: false,
-  //     isActivitiesCategorized: true,
-  //     trackerMode: TrackerMode.activitySampling,
-  //     status: TrackerStatus.current,
-  //     startDate: DateTime.now(),
-  //     endDate: DateTime.now().add(const Duration(days: 14)),
-  //   ));
-
-  //   for (final a in ACTIVITIES) {
-  //     await insertActivity(a);
-  //   }
-
-  //   for (final o in OBSERVATIONS) {
-  //     await insertObservation(o);
-  //   }
-  // }
 
   Future<void> unfinishTracker(Tracker tracker) async {
     try {

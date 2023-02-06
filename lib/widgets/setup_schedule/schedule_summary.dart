@@ -75,21 +75,6 @@ class ScheduleSummary extends ConsumerWidget {
                     : const TextStyle(color: Colors.white),
               ),
             ),
-          if (selectedDays.isNotEmpty)
-            ListTile(
-              leading: Icon(
-                Icons.check_rounded,
-                color: isForVerifySettingsPage
-                    ? Theme.of(context).accentColor
-                    : Colors.white,
-              ),
-              title: Text(
-                'Self-checks per day: ${tracker.observationsPerDay(selectedDays)}',
-                style: isForVerifySettingsPage
-                    ? null
-                    : const TextStyle(color: Colors.white),
-              ),
-            ),
           if (selectedDays.isNotEmpty &&
               selectedDays[0].observationStartTime != null &&
               selectedDays[0].observationEndTime != null)
@@ -101,12 +86,26 @@ class ScheduleSummary extends ConsumerWidget {
                     : Colors.white,
               ),
               title: Text(
-                'Self-checks to be recorded every ${tracker.minutesPerObservation(selectedDays).toStringAsFixed(0)} mins on average',
+                'Self-checks per day: ${tracker.observationsPerDay(ref)}',
                 style: isForVerifySettingsPage
                     ? null
                     : const TextStyle(color: Colors.white),
               ),
             ),
+          ListTile(
+            leading: Icon(
+              Icons.check_rounded,
+              color: isForVerifySettingsPage
+                  ? Theme.of(context).accentColor
+                  : Colors.white,
+            ),
+            title: Text(
+              'Self-checks to be recorded every ${tracker.minutesPerObservation.toStringAsFixed(0)} mins on average',
+              style: isForVerifySettingsPage
+                  ? null
+                  : const TextStyle(color: Colors.white),
+            ),
+          ),
         ]);
   }
 

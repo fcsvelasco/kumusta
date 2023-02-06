@@ -12,6 +12,7 @@ import '../widgets/setup_schedule/day_settings.dart';
 import '../widgets/setup_schedule/time_settings.dart';
 import '../models/day.dart';
 import '../styling/app_theme_data.dart';
+import '../widgets/setup_schedule/frequency_settings.dart';
 
 class SetSchedulePage extends MyConsumerWidget {
   Future<bool> goodScheduleInput(BuildContext context, WidgetRef ref) async {
@@ -90,60 +91,62 @@ class SetSchedulePage extends MyConsumerWidget {
       return false;
     }
 
-    // if (tracker.observationDaysCount(selectedDays) < 10) {
-    //   showValidationDialog(
-    //     context: context,
-    //     title: 'Invalid Schedule',
-    //     description:
-    //         'Number of days to track activities should not be less than 10 or more than 60.',
-    //     isForConfirmation: false,
-    //   );
-    //   return false;
-    // }
-    if (tracker.minutesPerObservation(selectedDays) <
-        Tracker.minAverageObservationInterval) {
+    if (tracker.observationDaysCount(selectedDays) < 10) {
       showValidationDialog(
         context: context,
-        title: 'Too Frequent Self-Checks',
-        descriptionWidget: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Based on the schedule, self-checks will happen too frequently which may cause inconvenience to you.',
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text(
-                'Consider increasing the tracking time by making any of the following adjustments:'),
-            ListTile(
-              leading: Icon(
-                Icons.crop_square_rounded,
-                color: Theme.of(context).accentColor,
-              ),
-              title: const Text('Extending the date range of the tracker'),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.crop_square_rounded,
-                color: Theme.of(context).accentColor,
-              ),
-              title:
-                  const Text('Selecting more days of the week (if possible)'),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.crop_square_rounded,
-                color: Theme.of(context).accentColor,
-              ),
-              title: const Text('Extending the time duration per day'),
-            ),
-          ],
-        ),
+        title: 'Invalid Schedule',
+        description:
+            '''Number of days with self-checks should not be less than 10.
+
+It is recommended that you extend the date range or include more days for self-checks, whichever is more applicable.''',
         isForConfirmation: false,
       );
       return false;
     }
+    // if (tracker.minutesPerObservation <
+    //     Tracker.minAverageObservationInterval) {
+    //   showValidationDialog(
+    //     context: context,
+    //     title: 'Too Frequent Self-Checks',
+    //     descriptionWidget: Column(
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       children: [
+    //         const Text(
+    //           'Based on the schedule, self-checks will happen too frequently which may cause inconvenience to you.',
+    //         ),
+    //         const SizedBox(
+    //           height: 10,
+    //         ),
+    //         const Text(
+    //             'Consider increasing the tracking time by making any of the following adjustments:'),
+    //         ListTile(
+    //           leading: Icon(
+    //             Icons.crop_square_rounded,
+    //             color: Theme.of(context).accentColor,
+    //           ),
+    //           title: const Text('Extending the date range of the tracker'),
+    //         ),
+    //         ListTile(
+    //           leading: Icon(
+    //             Icons.crop_square_rounded,
+    //             color: Theme.of(context).accentColor,
+    //           ),
+    //           title:
+    //               const Text('Selecting more days of the week (if possible)'),
+    //         ),
+    //         ListTile(
+    //           leading: Icon(
+    //             Icons.crop_square_rounded,
+    //             color: Theme.of(context).accentColor,
+    //           ),
+    //           title: const Text('Extending the time duration per day'),
+    //         ),
+    //       ],
+    //     ),
+    //     isForConfirmation: false,
+    //   );
+    //   return false;
+    // }
 
     if (tracker.isNightShift) {
       return await showValidationDialog(
@@ -223,6 +226,10 @@ class SetSchedulePage extends MyConsumerWidget {
             const Padding(
               padding: EdgeInsets.only(left: 10.0, right: 10.0),
               child: TimeSettings(),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 10.0, right: 10.0),
+              child: FrequencySettings(),
             ),
             const SizedBox(
               height: 10,

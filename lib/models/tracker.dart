@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +13,8 @@ import '../services/database_helper.dart';
 enum TrackerMode { activitySampling, moodSampling }
 
 enum TrackerStatus { current, finished, unfinished }
+
+enum TrackerFrequency { relaxed, moderate, frequent }
 
 class Tracker {
   static const maxTrackers = 20;
@@ -28,17 +32,20 @@ class Tracker {
   final TrackerStatus status;
   final DateTime startDate;
   final DateTime endDate;
+  final TrackerFrequency trackerFrequency;
 
-  const Tracker(
-      {required this.id,
-      required this.isSameTimeForAllDays,
-      required this.isWithBreakTime,
-      required this.isNightShift,
-      required this.isActivitiesCategorized,
-      required this.trackerMode,
-      required this.status,
-      required this.startDate,
-      required this.endDate});
+  const Tracker({
+    required this.id,
+    required this.isSameTimeForAllDays,
+    required this.isWithBreakTime,
+    required this.isNightShift,
+    required this.isActivitiesCategorized,
+    required this.trackerMode,
+    required this.status,
+    required this.startDate,
+    required this.endDate,
+    required this.trackerFrequency,
+  });
 
   Tracker copyWith({
     int? id,
@@ -53,6 +60,7 @@ class Tracker {
     TrackerStatus? status,
     DateTime? startDate,
     DateTime? endDate,
+    TrackerFrequency? trackerFrequency,
   }) {
     return Tracker(
       id: id ?? this.id,
@@ -65,6 +73,7 @@ class Tracker {
       status: status ?? this.status,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
+      trackerFrequency: trackerFrequency ?? this.trackerFrequency,
     );
   }
 
@@ -80,6 +89,7 @@ class Tracker {
       status: TrackerStatus.current,
       startDate: DateTime.now(),
       endDate: DateTime.now().add(const Duration(days: 21)),
+      trackerFrequency: TrackerFrequency.moderate,
     );
   }
 
@@ -124,6 +134,8 @@ class Tracker {
         status: TrackerStatus.values[json['status']],
         startDate: DateTime.parse(json['startDate']),
         endDate: DateTime.parse(json['endDate']),
+        trackerFrequency: TrackerFrequency
+            .moderate, //trackerFrequency is not recorded in sqflite and is only needed during generation of observations sched
       );
     } catch (e) {
       //print('In Tracker.fromMap() error: $e');
@@ -137,6 +149,7 @@ class Tracker {
         status: TrackerStatus.current,
         startDate: DateTime.now(),
         endDate: DateTime.now().add(const Duration(days: 21)),
+        trackerFrequency: TrackerFrequency.moderate,
       );
     }
   }
@@ -201,30 +214,55 @@ class Tracker {
     return observationDaysCount;
   }
 
-  int observationsPerDay(List<Day> selectedDays) {
-    return (totalObservations / observationDaysCount(selectedDays)).ceil();
+  int observationsPerDay(WidgetRef ref) {
+    return (ref
+                .read(daysProvider)[DayId.anyday.index]
+                .observationTimeRangeInMinutes(isNightShift) /
+            minutesPerObservation)
+        .floor();
   }
 
-  double minutesPerObservation(List<Day> selectedDays) {
-    int observations = observationsPerDay(selectedDays);
-    return selectedDays[0].observationTimeRangeInMinutes(isNightShift) /
-        observations;
+  double get minutesPerObservation {
+    switch (trackerFrequency) {
+      case TrackerFrequency.relaxed:
+        return 60;
+      case TrackerFrequency.moderate:
+        return 30;
+      case TrackerFrequency.frequent:
+        return 10;
+    }
+  }
+
+  int randomTimeInterval(TrackerFrequency trackerFrequency) {
+    switch (trackerFrequency) {
+      case TrackerFrequency.relaxed:
+        return Random().nextInt(30) + 45; // any integer from 45 to 75
+      case TrackerFrequency.moderate:
+        return Random().nextInt(20) + 20; // any integer from 20 to 30
+      case TrackerFrequency.frequent:
+        return Random().nextInt(10) + 5; // any integer from 5 to 15
+    }
   }
 
   Future<void> generateObservations(
-      List<Day> selectedDays, WidgetRef ref) async {
+    List<Day> selectedDays,
+    WidgetRef ref,
+    TrackerFrequency trackerFrequency,
+  ) async {
     //print('generateObservation()');
 
     List<Observation> observationsList = [];
     for (var day = startDate;
-        day.isBefore(DateTime(
-      endDate.year,
-      endDate.month,
-      endDate.day + 1,
-      endDate.hour,
-      endDate.minute,
-      endDate.second,
-    ));
+        day.isBefore(
+      DateTime(
+        endDate.year,
+        endDate.month,
+        endDate.day + 1,
+        endDate.hour,
+        endDate.minute,
+        endDate.second,
+      ),
+    );
         day = DateTime(
       day.year,
       day.month,
@@ -232,21 +270,23 @@ class Tracker {
       day.hour,
       day.minute,
       day.second,
-    )) {
+    ),) {
       Day dayModel = selectedDays.firstWhere(
           (element) => element.name == DateFormat('EEEE').format(day),
           orElse: () => Day.anyday(id));
 
       if (dayModel.name != Day.anyday(id).name) {
-        for (int randomMinuteOfDay in dayModel.randomTimesInMinutes(
-            observationsPerDay(selectedDays), isNightShift)) {
+        int newTimeInMinutes = dayModel.observationStartTimeInMinutes() +
+            randomTimeInterval(trackerFrequency);
+
+        while (newTimeInMinutes <=
+            dayModel.observationEndTimeInMinutes(isNightShift)) {
           late final TimeOfDay randomTimeOfDay;
           late final DateTime randomDateTime;
-          if (randomMinuteOfDay >= 24 * 60) {
+          if (newTimeInMinutes >= 24 * 60) {
             randomTimeOfDay = TimeOfDay(
-              hour: (randomMinuteOfDay / 60).floor() - 24,
-              minute: randomMinuteOfDay % 60,
-            );
+                hour: (newTimeInMinutes / 60).floor() - 24,
+                minute: newTimeInMinutes % 60);
             randomDateTime = DateTime(
               day.year,
               day.month,
@@ -256,9 +296,8 @@ class Tracker {
             );
           } else {
             randomTimeOfDay = TimeOfDay(
-              hour: (randomMinuteOfDay / 60).floor(),
-              minute: randomMinuteOfDay % 60,
-            );
+                hour: (newTimeInMinutes / 60).floor(),
+                minute: newTimeInMinutes % 60);
             randomDateTime = DateTime(
               day.year,
               day.month,
@@ -275,6 +314,8 @@ class Tracker {
             activityName: '',
             status: ObservationStatus.waiting,
           ));
+
+          newTimeInMinutes += randomTimeInterval(trackerFrequency);
         }
       }
     }
@@ -348,7 +389,7 @@ class Tracker {
 
   Future<void> updateObservationsOnLoad(WidgetRef ref) async {
     try {
-      print('tracker.updateObservationsOnLoad()');
+      //print('tracker.updateObservationsOnLoad()');
       final observations = ref.watch(observationsProvider);
       var val = true;
       var i = observations.indexOf((observations.firstWhere((element) =>
@@ -459,6 +500,7 @@ class Tracker {
               today.minute,
               today.second,
             ),
+            trackerFrequency: TrackerFrequency.moderate,
           ),
         );
   }
@@ -476,6 +518,7 @@ class TrackerNotifier extends StateNotifier<Tracker> {
           status: TrackerStatus.current,
           startDate: DateTime.now(),
           endDate: DateTime.now().add(const Duration(days: 21)),
+          trackerFrequency: TrackerFrequency.moderate,
         ));
 
   void loadTrackerToNotifier(Tracker tracker) {
@@ -504,6 +547,10 @@ class TrackerNotifier extends StateNotifier<Tracker> {
 
   void setEndDate(DateTime dateTime) {
     state = state.copyWith(endDate: dateTime);
+  }
+
+  void setFrequency(TrackerFrequency frequency) {
+    state = state.copyWith(trackerFrequency: frequency);
   }
 
   void finishTracking() async {

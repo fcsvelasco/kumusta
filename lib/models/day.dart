@@ -264,6 +264,19 @@ class Day {
     }
   }
 
+  int observationEndTimeInMinutes(bool isNightShift) {
+    if (isNightShift) {
+      return ((observationEndTime!.hour + 24) * 60 +
+          observationEndTime!.minute);
+    } else {
+      return (observationEndTime!.hour * 60 + observationEndTime!.minute);
+    }
+  }
+
+  int observationStartTimeInMinutes() {
+    return observationStartTime!.hour * 60 + observationStartTime!.minute;
+  }
+
   bool get isObservationStartEqualsEnd {
     return observationStartTime!.hour * 60 + observationStartTime!.minute ==
         observationEndTime!.hour * 60 + observationEndTime!.minute;
@@ -294,102 +307,10 @@ class Day {
         observationEndTime!.hour * 60 + observationEndTime!.minute;
   }
 
-  // TimeOfDay randomTimeOfDay(bool isWithBreakTime, bool isNightShift) {
-  //   var randomTimeInMinutes = observationStartTime!.hour * 60 +
-  //       observationStartTime!.minute +
-  //       Random().nextInt(observationTimeRangeInMinutes(isNightShift));
-
-  //   if (isWithBreakTime) {
-  //     //check if randomTimeInMinutes is within break time range
-
-  //     if (isNightShift && isBreakStartAfterEnd) {
-  //       while (randomTimeInMinutes >=
-  //               breakStartTime!.hour * 60 + breakStartTime!.minute &&
-  //           randomTimeInMinutes <=
-  //               (breakEndTime!.hour + 24) * 60 + breakEndTime!.minute) {
-  //         randomTimeInMinutes = observationStartTime!.hour * 60 +
-  //             observationStartTime!.minute +
-  //             Random().nextInt(observationTimeRangeInMinutes(isNightShift));
-  //       }
-  //     } else if (isNightShift && isObservationStartAfterBreakStart) {
-  //       while (randomTimeInMinutes >=
-  //               (breakStartTime!.hour + 24) * 60 + breakStartTime!.minute &&
-  //           randomTimeInMinutes <=
-  //               (breakEndTime!.hour + 24) * 60 + breakEndTime!.minute) {
-  //         randomTimeInMinutes = observationStartTime!.hour * 60 +
-  //             observationStartTime!.minute +
-  //             Random().nextInt(observationTimeRangeInMinutes(isNightShift));
-  //       }
-  //     } else {
-  //       while (randomTimeInMinutes >=
-  //               breakStartTime!.hour * 60 + breakStartTime!.minute &&
-  //           randomTimeInMinutes <=
-  //               breakEndTime!.hour * 60 + breakEndTime!.minute) {
-  //         randomTimeInMinutes = observationStartTime!.hour * 60 +
-  //             observationStartTime!.minute +
-  //             Random().nextInt(observationTimeRangeInMinutes(isNightShift));
-  //       }
-  //     }
-  //   }
-  //   var hour = (randomTimeInMinutes / 60).floor();
-  //   var minute = (randomTimeInMinutes % 60);
-  //   return TimeOfDay(hour: hour, minute: minute);
-  // }
-
   int generateRandomTimeInMinutes(bool isNightShift) {
     return observationStartTime!.hour * 60 +
         observationStartTime!.minute +
         Random().nextInt(observationTimeRangeInMinutes(isNightShift));
-  }
-
-  List<int> randomTimesInMinutes(int observationsPerDay, bool isNightShift) {
-    final List<int> randomTimes = [];
-
-    for (int i = 0; i < observationsPerDay; i++) {
-      var randomTimeInMinutes = generateRandomTimeInMinutes(isNightShift);
-
-      // if (randomTimes.isEmpty) {
-      //   randomTimes.add(randomTimeInMinutes);
-      // } else if (randomTimes.length == 1) {
-      //   //check first if randomTimeInMinutes is too close to the other generated random time.
-      //   while ((randomTimeInMinutes - randomTimes[0]).abs() <=
-      //       Tracker.minObservationInterval) {
-      //     randomTimeInMinutes = generateRandomTimeInMinutes(isNightShift);
-      //   }
-      //   randomTimes.add(randomTimeInMinutes);
-      //   randomTimes.sort();
-      // } else {
-      //   //check first if randomTimeInMinutes is too close to the other generated random times.
-      //   bool invalidRandomTime = true;
-      //   do {
-      //     final index = randomTimes
-      //         .indexWhere((element) => element >= randomTimeInMinutes);
-      //     if (index == -1) {
-      //       if (randomTimeInMinutes - randomTimes.last <=
-      //           Tracker.minObservationInterval) {
-      //         randomTimeInMinutes = generateRandomTimeInMinutes(isNightShift);
-      //       } else {
-      //         invalidRandomTime = false;
-      //       }
-      //     } else {
-      //       if ((randomTimes[index] - randomTimeInMinutes).abs() <=
-      //               Tracker.minObservationInterval &&
-      //           (randomTimes[index - 1] - randomTimeInMinutes).abs() <=
-      //               Tracker.minObservationInterval) {
-      //         randomTimeInMinutes = generateRandomTimeInMinutes(isNightShift);
-      //       } else {
-      //         invalidRandomTime = false;
-      //       }
-      //     }
-      //   } while (invalidRandomTime);
-
-      //   randomTimes.add(randomTimeInMinutes);
-      //   randomTimes.sort();
-      // }
-
-      randomTimes.add(randomTimeInMinutes);
-    }
-    return randomTimes;
   }
 }
 

@@ -14,7 +14,7 @@ class TimeSettings extends MyConsumerWidget {
       context: context,
       title: 'Time',
       description:
-          '''Here, you select the start time and end time of tracking per day. The random self-checks will be done within the time range that you select
+          '''Here, you select the start time and end time of monitoring per day. The random self-checks will be done within the time range that you select.
 
 It\'s up to you if you want to input your workhours, or the start and end of your usual day, or any specific time range of the day.''',
       isForConfirmation: false,
@@ -65,30 +65,6 @@ It\'s up to you if you want to input your workhours, or the start and end of you
             const Divider(
               thickness: 2,
             ),
-            // Row(
-            //   children: [
-            //     Checkbox(
-            //       value: tracker.isSameTimeForAllDays,
-            //       onChanged: (val) {
-            //         trackerNotifier.toggleIsSameTimeForAllDays(val!);
-            //       },
-            //     ),
-            //     const Text('Same time for all selected days'),
-            //   ],
-            // ),
-            // if (tracker.trackerMode == TrackerMode.activitySampling)
-            //   Row(
-            //     mainAxisAlignment: MainAxisAlignment.start,
-            //     children: [
-            //       Switch(
-            //         value: tracker.isWithBreakTime,
-            //         onChanged: (val) {
-            //           trackerNotifier.toggleIsWithBreakTime(val);
-            //         },
-            //       ),
-            //       const Text('With breaktime'),
-            //     ],
-            //   ),
             SelectTime(),
             const SizedBox(
               height: 10,
