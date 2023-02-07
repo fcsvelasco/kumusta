@@ -252,42 +252,6 @@ class _TabsPageState extends MyConsumerState<TabsPage>
         .then(((value) => _setTimeForNextObservation()));
   }
 
-  void _setNotifications(int count) async {
-    try {
-      final observations =
-          ref.read(trackerProvider).nextObservations(ref, count);
-      for (int i = 0; i < count; i++) {
-        await _notificationHelper.setScheduledNotification(
-            id: i,
-            title: 'Kumusta?',
-            body: 'Time for self-check!',
-            dateTime: observations[i].dateTime,
-            payload: 'tabs_page');
-      }
-
-      await _notificationHelper.setScheduledNotification(
-        id: count,
-        title: 'Kumusta?',
-        body:
-            'You\'ve been missing self-checks. No worries, you can always go back once you are available.',
-        dateTime:
-            observations[count - 1].dateTime.add(const Duration(minutes: 10)),
-        payload: 'tabs_page',
-      );
-    } catch (e) {
-      //print('setNotifications() error : $e');
-    }
-  }
-
-  void _cancelNotifications() async {
-    try {
-      await FlutterLocalNotificationsPlugin().cancelAll();
-      //print('Notifications cancelled');
-    } catch (e) {
-      //print('cancelAllNotifications() error: $e');
-    }
-  }
-
   void _startCreateNewTracker() async {
     final trackersCount = ref.read(trackersListProvider).length;
 
@@ -337,11 +301,11 @@ class _TabsPageState extends MyConsumerState<TabsPage>
     super.didChangeAppLifecycleState(state);
     //print('app state = $state');
     if (state == AppLifecycleState.inactive) {
-      _setNotifications(3);
+      _notificationHelper.setNotificationsForNextObservations(3, ref);
       return;
     }
     if (state == AppLifecycleState.resumed) {
-      _cancelNotifications();
+      _notificationHelper.cancelNotifications();
     }
   }
 

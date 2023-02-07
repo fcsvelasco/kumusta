@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:worksampler/models/tracker.dart';
 
 class LocalNotificationHelper {
   LocalNotificationHelper();
@@ -29,7 +32,7 @@ class LocalNotificationHelper {
     //     MaterialPageRoute<void>(builder: (context) => const TabsPage()));
   }
 
-  Future<void> setScheduledNotification({
+  Future<void> _setScheduledNotification({
     required int id,
     required String title,
     required String body,
@@ -54,6 +57,72 @@ class LocalNotificationHelper {
     );
 
     //print('Notification scheduled on ${dateTime.toIso8601String()}');
+  }
+
+  Future<void> setNotificationsForNextObservations(
+      int count, WidgetRef ref) async {
+    try {
+      final observations =
+          ref.read(trackerProvider).nextObservations(ref, count);
+      for (int i = 0; i < observations.length; i++) {
+        await _setScheduledNotification(
+            id: i,
+            title: 'Kumusta?',
+            body: 'Time for self-check!',
+            dateTime: observations[i].dateTime,
+            payload: 'tabs_page');
+      }
+
+      DateTime lastNotification =
+          observations[observations.length - 1].dateTime;
+
+      await _setScheduledNotification(
+        id: count,
+        title: 'Kumusta?',
+        body:
+            'You\'ve been missing self-checks. No worries, you can always go back once you are available.',
+        dateTime: DateTime(
+          lastNotification.year,
+          lastNotification.month,
+          lastNotification.day,
+          lastNotification.hour,
+          lastNotification.minute + 10,
+        ),
+        payload: 'tabs_page',
+      );
+
+      await _setScheduledNotification(
+        id: count,
+        title: 'Kumusta?',
+        body:
+            'You\'ve been missing self-checks. No worries, you can always go back once you are available.',
+        dateTime: DateTime(
+          lastNotification.year,
+          lastNotification.month,
+          lastNotification.day + 1,
+          lastNotification.hour,
+          lastNotification.minute,
+        ),
+        payload: 'tabs_page',
+      );
+    } catch (e) {
+      //print('setNotificationsForNextObservations() error : $e');
+    }
+  }
+
+  Future<void> setNotificationsForNextDays() async {
+    try {} catch (e) {
+      //print('setNotificationsForNextDays() error : $e');
+    }
+  }
+
+  Future<void> cancelNotifications() async {
+    try {
+      await FlutterLocalNotificationsPlugin().cancelAll();
+      //print('Notifications cancelled');
+    } catch (e) {
+      //print('cancelAllNotifications() error: $e');
+    }
   }
 
   Future<NotificationDetails> _notificationDetails() async {

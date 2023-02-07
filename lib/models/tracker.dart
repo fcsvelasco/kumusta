@@ -350,9 +350,17 @@ class Tracker {
         .where((o) => o.status == ObservationStatus.waiting)
         .toList();
 
-    for (int i = 0; i < observationsCount; i++) {
+    for (int i = 0;
+        i < min<int>(observationsCount, allWaitingObservations.length);
+        i++) {
       observations.add(allWaitingObservations[i]);
     }
+
+    return observations;
+  }
+
+  List<Observation> firstObservationOfNextDays() {
+    final List<Observation> observations = [];
 
     return observations;
   }
