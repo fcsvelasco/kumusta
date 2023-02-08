@@ -287,12 +287,6 @@ class _ChartAreaState extends ConsumerState<ChartArea> {
                 ),
               )
             : Container(
-                // decoration: BoxDecoration(
-                //   borderRadius: const BorderRadius.all(Radius.circular(15)),
-                //   border: Border.all(
-                //       color: Theme.of(context).accentColor, width: 5),
-                //   color: COLOR[0],
-                // ),
                 child: chartAreaBuilder(
                   activities,
                   constraints,

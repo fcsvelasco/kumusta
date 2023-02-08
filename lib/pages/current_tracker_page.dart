@@ -18,48 +18,15 @@ class CurrentTrackerPage extends ConsumerStatefulWidget {
 class _CurrentTrackerPageState extends ConsumerState<CurrentTrackerPage> {
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context);
-    final appBar = AppBar(
-      title: const Text('Mood Tracker'),
-      centerTitle: true,
-    );
-
     return Container(
       color: COLOR[0],
-      //color: Colors.orange[50],
-      //padding: const EdgeInsets.all(10),
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        //crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
         children: <Widget>[
-          // Container(
-          //   height: (mq.size.height -
-          //           mq.padding.top -
-          //           appBar.preferredSize.height -
-          //           kBottomNavigationBarHeight) *
-          //       0.10,
-          //   child: const PageHeading(
-          //     pageTitle: 'Good day!',
-          //     //pageDescription: 'Tracker id: ${ref.watch(trackerProvider).id}',
-          //   ),
-          // ),
-          Container(
-            // height: (mq.size.height -
-            //         mq.padding.top -
-            //         appBar.preferredSize.height -
-            //         kBottomNavigationBarHeight) *
-            //     0.5,
+          Padding(
             padding: const EdgeInsets.all(10),
             child: ChartArea(),
           ),
-          SizedBox(
-            height: (mq.size.height -
-                    mq.padding.top -
-                    appBar.preferredSize.height -
-                    kBottomNavigationBarHeight) *
-                0.45,
-            //padding: const EdgeInsets.all(10),
-
+          Expanded(
             child: InformationTabsArea(
               startRecordObservation: widget.startRecordObservation,
             ),
