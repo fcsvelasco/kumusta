@@ -419,9 +419,9 @@ class Tracker {
             now.month,
             now.day,
             now.hour,
-            now.minute + Observation.recordNowDuration,
+            now.minute - Observation.recordNowDuration,
           );
-          if (observations[i].dateTime.isBefore(recordingNow)) {
+          if (observations[i].dateTime.isBefore(recordingNowWithAllowance)) {
             if (observations[i].status == ObservationStatus.waiting ||
                 observations[i].status == ObservationStatus.recordNow) {
               await ref
@@ -435,7 +435,7 @@ class Tracker {
                       'Observation id ${observations[i].id} updated status to: ${ref.read(observationsProvider)[i].status}'));
             }
           } else if (observations[i].dateTime == recordingNow ||
-              observations[i].dateTime.isBefore(recordingNowWithAllowance)) {
+              observations[i].dateTime.isBefore(recordingNow)) {
             await ref
                 .read(observationsProvider.notifier)
                 .updateObservation(
