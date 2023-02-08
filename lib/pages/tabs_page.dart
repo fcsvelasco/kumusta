@@ -300,7 +300,9 @@ class _TabsPageState extends MyConsumerState<TabsPage>
     super.didChangeAppLifecycleState(state);
     //print('app state = $state');
     if (state == AppLifecycleState.inactive) {
-      _notificationHelper.setNotificationsForNextObservations(3, ref);
+      if (ref.read(trackerProvider).isWithNextObservation(ref)) {
+        _notificationHelper.setNotificationsForNextObservations(3, ref);
+      }
       return;
     }
     if (state == AppLifecycleState.resumed) {
