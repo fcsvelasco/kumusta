@@ -91,7 +91,7 @@ class LocalNotificationHelper {
         payload: 'tabs_page',
       );
 
-      for (int i = 0; i < 5; i++) {
+      for (int i = 0; i < 3; i++) {
         //set notifications for next 5 days if user is not opening the app.
         await _setScheduledNotification(
           id: count,
