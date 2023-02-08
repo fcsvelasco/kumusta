@@ -91,20 +91,23 @@ class LocalNotificationHelper {
         payload: 'tabs_page',
       );
 
-      await _setScheduledNotification(
-        id: count,
-        title: 'Kumusta?',
-        body:
-            'You\'ve been missing self-checks. No worries, you can always go back once you are available.',
-        dateTime: DateTime(
-          lastNotification.year,
-          lastNotification.month,
-          lastNotification.day + 1,
-          lastNotification.hour,
-          lastNotification.minute,
-        ),
-        payload: 'tabs_page',
-      );
+      for (int i = 0; i < 5; i++) {
+        //set notifications for next 5 days if user is not opening the app.
+        await _setScheduledNotification(
+          id: count,
+          title: 'Kumusta?',
+          body:
+              'You\'ve been missing self-checks. You can update them anytime, but it\'s best to do it without much delay.',
+          dateTime: DateTime(
+            lastNotification.year,
+            lastNotification.month,
+            lastNotification.day + i + 1,
+            lastNotification.hour,
+            lastNotification.minute,
+          ),
+          payload: 'tabs_page',
+        );
+      }
     } catch (e) {
       //print('setNotificationsForNextObservations() error : $e');
     }
