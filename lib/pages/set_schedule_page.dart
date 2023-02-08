@@ -96,57 +96,43 @@ class SetSchedulePage extends MyConsumerWidget {
         context: context,
         title: 'Invalid Schedule',
         description:
-            '''Number of days with self-checks should not be less than 10.
+            '''Number of days with self-checks should not be less than 10 or more than 21.
 
-It is recommended that you extend the date range or include more days for self-checks, whichever is more applicable.''',
+Currently, you have ${tracker.observationDaysCount(selectedDays)} day(s) with self-checks.
+
+It is recommended that you extend the date range or the include more days for self-checks, whichever is more applicable.''',
         isForConfirmation: false,
       );
       return false;
     }
-    // if (tracker.minutesPerObservation <
-    //     Tracker.minAverageObservationInterval) {
-    //   showValidationDialog(
-    //     context: context,
-    //     title: 'Too Frequent Self-Checks',
-    //     descriptionWidget: Column(
-    //       crossAxisAlignment: CrossAxisAlignment.start,
-    //       children: [
-    //         const Text(
-    //           'Based on the schedule, self-checks will happen too frequently which may cause inconvenience to you.',
-    //         ),
-    //         const SizedBox(
-    //           height: 10,
-    //         ),
-    //         const Text(
-    //             'Consider increasing the tracking time by making any of the following adjustments:'),
-    //         ListTile(
-    //           leading: Icon(
-    //             Icons.crop_square_rounded,
-    //             color: Theme.of(context).accentColor,
-    //           ),
-    //           title: const Text('Extending the date range of the tracker'),
-    //         ),
-    //         ListTile(
-    //           leading: Icon(
-    //             Icons.crop_square_rounded,
-    //             color: Theme.of(context).accentColor,
-    //           ),
-    //           title:
-    //               const Text('Selecting more days of the week (if possible)'),
-    //         ),
-    //         ListTile(
-    //           leading: Icon(
-    //             Icons.crop_square_rounded,
-    //             color: Theme.of(context).accentColor,
-    //           ),
-    //           title: const Text('Extending the time duration per day'),
-    //         ),
-    //       ],
-    //     ),
-    //     isForConfirmation: false,
-    //   );
-    //   return false;
-    // }
+
+    if (tracker.observationDaysCount(selectedDays) > 21) {
+      showValidationDialog(
+        context: context,
+        title: 'Invalid Schedule',
+        description:
+            '''Number of days with self-checks should not be less than 10 or more than 21.
+
+Currently, you have ${tracker.observationDaysCount(selectedDays)} days with self-checks.
+
+It is recommended that you shorten the date range or the exclude some of the days for self-checks, whichever is more applicable.''',
+        isForConfirmation: false,
+      );
+      return false;
+    }
+
+    if (days[DayId.anyday.index]
+            .observationTimeRangeInMinutes(tracker.isNightShift) <
+        180) {
+      showValidationDialog(
+        context: context,
+        title: 'Invalid Schedule',
+        description:
+            '''Monitoring time per day is too short. Kindly adjust so there will be ample time for self-checks.''',
+        isForConfirmation: false,
+      );
+      return false;
+    }
 
     if (tracker.isNightShift) {
       return await showValidationDialog(

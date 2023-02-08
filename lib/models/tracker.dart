@@ -18,7 +18,6 @@ enum TrackerFrequency { relaxed, moderate, frequent }
 
 class Tracker {
   static const maxTrackers = 20;
-  static const totalObservations = 700;
   static const maxActivities = 20;
   static const minAverageObservationInterval = 10;
   static const minObservationInterval = 3;
