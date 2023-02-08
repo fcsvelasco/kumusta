@@ -183,31 +183,25 @@ class _ChartAreaState extends ConsumerState<ChartArea> {
     TimeOfDay startTime,
   ) {
     return noDataYet(activities)
-        ? Container(
-            alignment: Alignment.topCenter,
-            child: Column(
-              children: [
-                if (widget.trackerId == null)
-                  const SizedBox(
-                    height: 100,
-                  ),
-                ListTile(
-                  leading: Icon(
-                    Icons.show_chart_rounded,
+        ? SizedBox(
+            height: widget.trackerId != null ? null : 250,
+            child: Center(
+              child: ListTile(
+                leading: Icon(
+                  Icons.show_chart_rounded,
+                  color: Theme.of(context).primaryColor,
+                  size: 40,
+                ),
+                title: Text(
+                  widget.trackerId == null
+                      ? 'This is where you\'ll see partial results. Monitoring starts on ${DateFormat.yMMMd('en_US').format(tracker.startDate)} at ${startTime.format(context)}.'
+                      : 'No data gathered for this checker.',
+                  style: TextStyle(
                     color: Theme.of(context).primaryColor,
-                    size: 40,
-                  ),
-                  title: Text(
-                    widget.trackerId == null
-                        ? 'This is where you\'ll see partial results. Monitoring starts on ${DateFormat.yMMMd('en_US').format(tracker.startDate)} at ${startTime.format(context)}.'
-                        : 'No data gathered for this checker.',
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ],
+              ),
             ),
           )
         : Column(
