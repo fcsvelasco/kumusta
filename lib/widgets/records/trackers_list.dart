@@ -9,7 +9,7 @@ import '../../styling/page_heading.dart';
 import '../../styling/my_consumer_widget.dart';
 import '../../services/database_helper.dart';
 import '../../styling/app_theme_data.dart';
-import 'view_tracker_details.dart';
+import './view_tracker_details.dart';
 
 class TrackersList extends ConsumerWidget {
   const TrackersList({required this.trackerMode, Key? key}) : super(key: key);

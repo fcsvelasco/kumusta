@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/tracker.dart';
 import '../../models/activity.dart';
-import 'activity_unit.dart';
+import './activity_unit.dart';
 
 class ActivitiesList extends ConsumerWidget {
   //const ActivitiesList({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'view_activity_details.dart';
+import './view_activity_details.dart';
 import '../setup-activities/delete_activity.dart';
 import '../../styling/app_theme_data.dart';
 import '../../models/activity.dart';

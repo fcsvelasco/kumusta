@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:worksampler/services/notification_helper.dart';
 
 import '../models/tracker.dart';
 import '../styling/app_theme_data.dart';
@@ -19,20 +18,6 @@ class RecordsPage extends ConsumerStatefulWidget {
 }
 
 class _RecordsPageState extends ConsumerState<RecordsPage> {
-  // int trackersCount = 0;
-  // int activitiesCount = 0;
-  // int observationsCount = 0;
-  // int daysCount = 0;
-  // late final LocalNotificationHelper notificationHelper;
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   notificationHelper = LocalNotificationHelper();
-  //   notificationHelper.initialize();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Container(

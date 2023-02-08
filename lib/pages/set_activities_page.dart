@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:worksampler/styling/cutom_appbar.dart';
 
+import '../styling/cutom_appbar.dart';
 import '../models/activity.dart';
 import '../models/tracker.dart';
 import '../widgets/activities/activity_unit.dart';

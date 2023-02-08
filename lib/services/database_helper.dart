@@ -7,7 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/activity.dart';
 import '../models/day.dart';
-import '../models/dummy_data.dart';
 import '../models/observation.dart';
 import '../models/tracker.dart';
 

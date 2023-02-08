@@ -1,5 +1,4 @@
 import './day.dart';
-import './observation.dart';
 import './activity.dart';
 
 const SELECTED_DAYS = [

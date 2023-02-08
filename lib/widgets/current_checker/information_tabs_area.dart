@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/tracker.dart';
 import '../../models/observation.dart';
-import 'observations_list.dart';
+import './observations_list.dart';
 import '../activities/activities_list.dart';
 import '../activities/activity_unit.dart';
 
