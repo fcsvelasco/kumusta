@@ -192,8 +192,8 @@ It is recommended that you shorten the date range or the exclude some of the day
               child: PageHeading(
                 pageTitle: 'Step 1 of 3: Set your schedule!',
                 pageDescription: trackerMode == TrackerMode.activitySampling
-                    ? 'In this section, you set the schedule of monitoring your productivity. At random times within your selected schedule, you will receive reminders to check up on yourself.'
-                    : 'In this section, you set the schedule of monitoring your mood. At random times within your selected schedule, you will receive reminders to check up on yourself.',
+                    ? 'In this section, you set the schedule of monitoring your productivity. At random times within your selected schedule, you will receive reminders to check in with yourself.'
+                    : 'In this section, you set the schedule of monitoring your mood. At random times within your selected schedule, you will receive reminders to check in with yourself.',
                 pageTitleColor: Colors.white,
                 pageDescriptionColor: Colors.white,
               ),
