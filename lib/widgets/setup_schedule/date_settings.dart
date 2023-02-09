@@ -155,7 +155,7 @@ If you are not sure of what to put here, you may set a duration of 3 weeks.''',
                   firstDate: DateTime(
                     today.year,
                     today.month,
-                    today.day,
+                    today.day + 1,
                   ),
                   lastDate: DateTime(
                     tracker.startDate.year,
