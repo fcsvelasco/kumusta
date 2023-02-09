@@ -196,7 +196,8 @@ class _AddActivityFormState extends ConsumerState<AddActivityForm> {
                       if (value.length > Activity.maxActivityNameLength) {
                         return 'Name is too long.';
                       }
-                      if (!_isForEditing) {
+                      if (!_isForEditing ||
+                          (_isForEditing && value != widget.activity!.name)) {
                         if (ref.watch(activitiesProvider).indexWhere(
                                 (element) => element.name == value) !=
                             -1) {

@@ -126,10 +126,10 @@ class ActivitiesNotifier extends StateNotifier<List<Activity>> {
     state = [...state, activity];
   }
 
-  void removeActivity(int trackerId, String name) {
+  void removeActivity(int trackerId, String id) {
     state = [
       for (final activity in state)
-        if (activity.name != name && activity.trackerId == trackerId) activity
+        if (activity.id != id && activity.trackerId == trackerId) activity
     ];
   }
 

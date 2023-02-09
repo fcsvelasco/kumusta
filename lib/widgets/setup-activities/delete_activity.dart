@@ -50,7 +50,7 @@ class DeleteActivity extends ConsumerWidget {
                   child: const Text('Yes'),
                   onPressed: () {
                     ref.read(activitiesProvider.notifier).removeActivity(
-                        ref.read(trackerProvider).id, activity.name);
+                        ref.read(trackerProvider).id, activity.id);
                     Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
                       MySnackBar(
