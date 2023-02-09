@@ -70,7 +70,7 @@ class VerifySettingsPage extends ConsumerWidget {
                 color: Theme.of(context).primaryColor,
               ),
               child: PageHeading(
-                pageTitle: 'Step 3: Verify!',
+                pageTitle: 'Step 3 of 3: Verify!',
                 pageDescription: trackerMode == TrackerMode.activitySampling
                     ? 'In this section, you verify the schedule and activities you have provided. Make sure you are okay with the schedule and activities before clicking "Submit".'
                     : 'In this section, you verify the schedule and moods you have provided. Make sure you are okay with the schedule and moods before clicking "Submit".',

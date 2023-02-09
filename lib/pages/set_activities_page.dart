@@ -114,8 +114,8 @@ class SetActivitiesPage extends ConsumerWidget {
                   alignment: Alignment.topLeft,
                   child: PageHeading(
                     pageTitle: trackerMode == TrackerMode.activitySampling
-                        ? 'Step 2: Specify your activities!'
-                        : 'Step 2: Specify possible moods!',
+                        ? 'Step 2 of 3: Specify your activities!'
+                        : 'Step 2 of 3: Specify possible moods!',
                     pageDescription: trackerMode == TrackerMode.activitySampling
                         ? '''In this section, you provide your daily activities or the tasks to be considered.
 

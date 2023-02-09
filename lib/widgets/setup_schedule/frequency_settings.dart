@@ -112,7 +112,7 @@ class FrequencyInfo extends StatelessWidget {
       children: <Widget>[
         const Text('This is where you set how often the self-checks occur.'),
         const SizedBox(
-          height: 10,
+          height: 16,
         ),
         RichText(
           text: TextSpan(
@@ -139,7 +139,7 @@ class FrequencyInfo extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 16,
         ),
         RichText(
           text: TextSpan(
@@ -166,7 +166,7 @@ class FrequencyInfo extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 16,
         ),
         RichText(
           text: TextSpan(
@@ -193,10 +193,15 @@ class FrequencyInfo extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 16,
         ),
         const Text(
-            'More frequent self-checks will lead to a more accurate monitoring but may cause inconvenience on your part. Less frequent self-checks will require less effort on your part but will give you less accurate results.'),
+            'More frequent self-checks will lead to a more accurate monitoring but may cause inconvenience on your part.'),
+        const SizedBox(
+          height: 16,
+        ),
+        const Text(
+            'Less frequent self-checks will require less effort on your part but will give you less accurate results.'),
       ],
     );
   }

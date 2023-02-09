@@ -26,6 +26,9 @@ class _CurrentTrackerPageState extends ConsumerState<CurrentTrackerPage> {
             padding: const EdgeInsets.all(10),
             child: ChartArea(),
           ),
+          const SizedBox(
+            height: 10,
+          ),
           Expanded(
             child: InformationTabsArea(
               startRecordObservation: widget.startRecordObservation,

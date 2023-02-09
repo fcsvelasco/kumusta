@@ -110,19 +110,23 @@ class _ChartAreaState extends ConsumerState<ChartArea> {
       elevation: 10,
       child: Column(
         children: [
-          Row(
-            children: <Widget>[
-              Switch(
-                value: _showCategoriesChart,
-                onChanged: (val) {
-                  setState(() {
-                    _showCategoriesChart = val;
-                  });
-                },
-              ),
-              const Text('Show results per category'),
-            ],
-          ),
+          ref.read(trackerProvider).isActivitiesCategorized
+              ? Row(
+                  children: <Widget>[
+                    Switch(
+                      value: _showCategoriesChart,
+                      onChanged: (val) {
+                        setState(() {
+                          _showCategoriesChart = val;
+                        });
+                      },
+                    ),
+                    const Text('Show results per category'),
+                  ],
+                )
+              : const SizedBox(
+                  height: 20,
+                ),
           PieChart(
             dataMap:
                 _showCategoriesChart ? _categoriesDataMap : _activitiesDataMap,
@@ -145,19 +149,26 @@ class _ChartAreaState extends ConsumerState<ChartArea> {
   Widget chartForPreviousTrackers(BoxConstraints constraints) {
     return Column(
       children: [
-        Row(
-          children: <Widget>[
-            Switch(
-              value: _showCategoriesChart,
-              onChanged: (val) {
-                setState(() {
-                  _showCategoriesChart = val;
-                });
-              },
-            ),
-            const Text('Show results per category'),
-          ],
-        ),
+        ref
+                .read(trackersListProvider)
+                .firstWhere((element) => element.id == widget.trackerId)
+                .isActivitiesCategorized
+            ? Row(
+                children: <Widget>[
+                  Switch(
+                    value: _showCategoriesChart,
+                    onChanged: (val) {
+                      setState(() {
+                        _showCategoriesChart = val;
+                      });
+                    },
+                  ),
+                  const Text('Show results per category'),
+                ],
+              )
+            : const SizedBox(
+                height: 20,
+              ),
         PieChart(
           dataMap:
               _showCategoriesChart ? _categoriesDataMap : _activitiesDataMap,
