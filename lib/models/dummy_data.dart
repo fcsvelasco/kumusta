@@ -105,6 +105,15 @@ const MOODS = [
   ),
   Activity(
     trackerId: 0,
+    id: 'In the Zone',
+    name: 'In the Zone',
+    description: '',
+    category: ActivityCategory.productive,
+    iconId: 60,
+    count: 0,
+  ),
+  Activity(
+    trackerId: 0,
     id: 'Busy',
     name: 'Busy',
     description: '',
