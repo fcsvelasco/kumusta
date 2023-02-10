@@ -66,35 +66,29 @@ class LocalNotificationHelper {
           ref.read(trackerProvider).nextObservations(ref, count);
       for (int i = 0; i < observations.length; i++) {
         await _setScheduledNotification(
-            id: i,
-            title: 'Kumusta?',
-            body: 'Time for self-check!',
-            dateTime: observations[i].dateTime,
-            payload: 'tabs_page');
+          id: i,
+          title: 'Kumusta?',
+          body: 'Time for self-check!',
+          dateTime: observations[i].dateTime,
+          payload: 'tabs_page',
+        );
       }
 
-      DateTime lastNotification =
-          observations[observations.length - 1].dateTime;
+      DateTime lastNotification = observations.last.dateTime;
 
       await _setScheduledNotification(
         id: count,
         title: 'Kumusta?',
         body:
             'You\'ve been missing self-checks. No worries, you can always go back once you are available.',
-        dateTime: DateTime(
-          lastNotification.year,
-          lastNotification.month,
-          lastNotification.day,
-          lastNotification.hour,
-          lastNotification.minute + 10,
-        ),
+        dateTime: lastNotification.add(const Duration(minutes: 60)),
         payload: 'tabs_page',
       );
 
       for (int i = 0; i < 3; i++) {
-        //set notifications for next 5 days if user is not opening the app.
+        //set notifications for next 3 days if user is not opening the app.
         await _setScheduledNotification(
-          id: count,
+          id: count + i + 1,
           title: 'Kumusta?',
           body:
               'You\'ve been missing self-checks. You can update them anytime, but it\'s best to do it without much delay.',
@@ -123,6 +117,7 @@ class LocalNotificationHelper {
     try {
       await FlutterLocalNotificationsPlugin().cancelAll();
       //print('Notifications cancelled');
+
     } catch (e) {
       //print('cancelAllNotifications() error: $e');
     }
